@@ -672,7 +672,7 @@ int update_fdt_para_for_kernel(void* dtb_base)
 			else
 			{
 				disable_node("nand0");
-				//disable_node("mmc2");
+				disable_node("mmc2");
 				disable_node("mmc3");
 			}
 		}
