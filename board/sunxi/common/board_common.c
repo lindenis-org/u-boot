@@ -660,7 +660,10 @@ int update_fdt_para_for_kernel(void* dtb_base)
 		case STORAGE_SD:
 		{
 			uint32_t dragonboard_test = 0;
+			uint32_t lindenis_test = 0;
+
 			ret = script_parser_fetch("target", "dragonboard_test", (int *)&dragonboard_test, 1);
+			ret = script_parser_fetch("target", "lindenis_test", (int *)&lindenis_test, 1);
 			if(dragonboard_test == 1)
 			{
 				dragonboard_handler(dtb_base);
@@ -668,6 +671,13 @@ int update_fdt_para_for_kernel(void* dtb_base)
 				#ifdef CONFIG_MMC3_SUPPORT
 				mmc_update_config_for_dragonboard(3);
 				#endif
+			}
+			else if(lindenis_test == 1)
+			{
+				disable_node("nand0");
+				//disable_node("mmc2");
+				disable_node("mmc3");
+				setenv("mmc_root", "/dev/mmcblk1p1");
 			}
 			else
 			{
